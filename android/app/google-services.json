@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "877347975196",
+    "project_id": "vitaminh-connect",
+    "storage_bucket": "vitaminh-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877347975196:android:bc95e256d2c4b439f92fd9",
+        "android_client_info": {
+          "package_name": "com.example.vitaminh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEKVG9TCLZpl5JKryKu4y4kDhlnCgthhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
