@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:vitaminh/src/screens/loaicafe_screen.dart';
 
 import '../class/loaicafe.dart';
+import '../provider/cartprovider.dart';
 
 class ChiTietCafe_Screen extends StatefulWidget {
   final LoaiCafe loaiCafe;
@@ -87,7 +89,7 @@ class _ChiTietCafe_ScreenState extends State<ChiTietCafe_Screen> {
                 SizedBox(height: 210),
                 Container(
                   child: Text(
-                    'Tổng tiền:               ${tongTien.toStringAsFixed(2)} VND',
+                    'Tổng tiền:               ${tongTien.toString()} VND',
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -99,7 +101,17 @@ class _ChiTietCafe_ScreenState extends State<ChiTietCafe_Screen> {
                     backgroundColor: Color(0xffD8D8D8)
                 ),
                 onPressed: () {
-
+// Thêm sản phẩm vào giỏ hàng
+                  context.read<CartProvider>().addToCart(
+                    widget.loaiCafe.id,
+                    widget.loaiCafe.ten,
+                    double.parse(widget.loaiCafe.gia),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Đã thêm vào giỏ hàng'),
+                    ),
+                  );
                 },
                 child: Text('Đặt hàng', style: GoogleFonts.poppins(fontWeight: FontWeight.w600),),
               ),

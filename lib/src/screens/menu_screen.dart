@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:vitaminh/src/screens/giohang_screen.dart';
 import 'package:vitaminh/src/screens/thongtincanhan_screen.dart';
 import 'package:vitaminh/src/widgets/bottomnav.dart';
 import 'package:vitaminh/src/widgets/menudouong.dart';
@@ -47,7 +48,10 @@ class _Menu_ScreenState extends State<Menu_Screen> {
           Padding(
             padding: const EdgeInsets.only(top: 63),
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => GioHang_Screen(),));
+
+                },
                 icon: Icon(
                   Icons.shopping_cart_outlined,
                   size: 30,

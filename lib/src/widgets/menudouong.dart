@@ -47,12 +47,12 @@ class _MenuDoUongState extends State<MenuDoUong> {
   }
   Future<void> _getLoaiDoUongData() async {
     try {
-      // WidgetsFlutterBinding.ensureInitialized();
-      // await Firebase.initializeApp();
-      // //
-      // // // Thêm dữ liệu loại đồ uống
-      // // await themDuLieuLoaiDoUong();
-      // // Thêm dữ liệu đồ uống
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
+      //
+      // // Thêm dữ liệu loại đồ uống
+      // await themDuLieuLoaiDoUong();
+      // Thêm dữ liệu đồ uống
       // await themDuLieuDoUong();
       // Lấy tham chiếu đến bảng loai_do_uong từ Firestore
       CollectionReference loaiDoUongCollection =
@@ -81,19 +81,23 @@ class _MenuDoUongState extends State<MenuDoUong> {
   // do_uong
   // Dữ liệu mẫu cho đồ uống (sử dụng cho một loại đồ uống, bạn có thể mở rộng cho các loại khác)
   List<Map<String, dynamic>> doUongData = [
-    {"ten": "Americano đá", "gia": "35000", "anh": "assets/images/logo/logo_cappuccino.png", "loai": "2"},
-    {"ten": "Americano nóng", "gia": "35000", "anh": "assets/images/logo/logo_cappuccino.png", "loai": "2"},
+    {"ten": "Cappuccino đá", "gia": "15000", "anh": "assets/images/logo/logo_cappuccino.png", "loai": "2"},
+    {"ten": "Cappuccino nóng", "gia": "15000", "anh": "assets/images/logo/logo_cappuccino.png", "loai": "2"},
+    {"ten": "Americano nóng", "gia": "25000", "anh": "assets/images/logo/logo_amerricano.png", "loai": "1"},
+    {"ten": "Americano đá", "gia": "25000", "anh": "assets/images/logo/logo_amerricano.png", "loai": "1"},
+    {"ten": "Americano pha sữa", "gia": "35000", "anh": "assets/images/logo/logo_amerricano.png", "loai": "1"},
+    {"ten": "Latte nóng", "gia": "35000", "anh": "assets/images/logo/logo_latte.png", "loai": "3"},
     // Thêm các đồ uống khác cho loại khác
   ];
 
 // Thêm dữ liệu vào bảng do_uong
-  Future<void> themDuLieuDoUong() async {
-    CollectionReference doUongCollection = FirebaseFirestore.instance.collection('do_uong');
-
-    for (Map<String, dynamic> data in doUongData) {
-      await doUongCollection.add(data);
-    }
-  }
+//   Future<void> themDuLieuDoUong() async {
+//     CollectionReference doUongCollection = FirebaseFirestore.instance.collection('do_uong');
+//
+//     for (Map<String, dynamic> data in doUongData) {
+//       await doUongCollection.add(data);
+//     }
+//   }
 
 
   @override

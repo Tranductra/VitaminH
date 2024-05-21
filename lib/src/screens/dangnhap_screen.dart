@@ -39,28 +39,59 @@ class _DangNhap_ScreenState extends State<DangNhap_Screen> {
     super.dispose();
   }
 
+  Future<bool> isAdminAccount(String email) async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('admin')
+          .doc(email)
+          .get();
+
+      return snapshot.exists;
+    } catch (e) {
+      print('Lỗi khi kiểm tra admin account: $e');
+      return false;
+    }
+  }
+
   Future<void> _dangNhap() async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _matKhauController.text.trim(),
       );
-      // Sử dụng Firestore thay vì FirebaseDatabase
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user?.uid)
-          .get();
 
-      if (snapshot.exists) {
-        Provider.of<UserData>(context, listen: false).setUid(userCredential.user?.uid ?? '');
-        Provider.of<UserData>(context, listen: false).setEmail(userCredential.user?.email ?? '');
-        Provider.of<UserData>(context, listen: false).setHoTen(snapshot['hoTen'] ?? '');
-        Provider.of<UserData>(context, listen: false).setSoDienThoai(snapshot['soDienThoai'] ?? '');
+      // // Kiểm tra xem tài khoản có phải là admin hay không
+      // bool isAdmin = await isAdminAccount(_emailController.text.trim());
+      // print('isAdmin: $isAdmin');
+
+      String? admin = userCredential.user?.email;
+
+
+      if (admin == 'admin@gmail.com') {
+        // Chuyển hướng đến trang quản lý admin
+        Navigator.pushReplacementNamed(context, '/screens/admin');
       }
+      else {
+        // Sử dụng Firestore thay vì FirebaseDatabase
+        DocumentSnapshot snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user?.uid)
+            .get();
+
+        if (snapshot.exists) {
+          Provider.of<UserData>(context, listen: false).setUid(userCredential.user?.uid ?? '');
+          Provider.of<UserData>(context, listen: false).setEmail(userCredential.user?.email ?? '');
+          Provider.of<UserData>(context, listen: false).setHoTen(snapshot['hoTen'] ?? '');
+          Provider.of<UserData>(context, listen: false).setSoDienThoai(snapshot['soDienThoai'] ?? '');
+        }
+        // Đăng nhập thành công, chuyển hướng qua màn hình Home hoặc thực hiện hành động cần thiết
+        Navigator.pushReplacementNamed(context, '/screens/trangchu');
+      }
+      //   // Chuyển hướng đến trang menu
+      //   // Navigator.pushReplacementNamed(context, '/screens/trangchu');
+      // }
 
 
-      // Đăng nhập thành công, chuyển hướng qua màn hình Home hoặc thực hiện hành động cần thiết
-      Navigator.pushReplacementNamed(context, '/screens/trangchu');
     } on FirebaseAuthException catch (e) {
       // Đăng nhập không thành công, hiển thị thông báo lỗi
       showDialog(

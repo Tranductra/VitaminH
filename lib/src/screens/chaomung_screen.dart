@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitaminh/src/class/admin.dart';
 import 'package:vitaminh/src/screens/dangnhap_screen.dart';
+
+import '../class/loaicafe.dart';
+import '../class/loaidouong.dart';
 
 class ChaoMung_Screen extends StatefulWidget {
   const ChaoMung_Screen({super.key});
@@ -8,7 +13,26 @@ class ChaoMung_Screen extends StatefulWidget {
   State<ChaoMung_Screen> createState() => _ChaoMung_ScreenState();
 }
 
+
 class _ChaoMung_ScreenState extends State<ChaoMung_Screen> {
+  final CollectionReference loaiCafeCollection =
+  FirebaseFirestore.instance.collection('do_uong');
+
+
+
+  Future<void> addListOfLoaiCafeToFirestore(List<LoaiCafe> listOfLoaiCafe) async {
+    try {
+      // Lặp qua danh sách và thêm từng đối tượng LoaiCafe vào Firestore
+      for (var loaiCafe in listOfLoaiCafe) {
+        await loaiCafeCollection.doc(loaiCafe.id).set(loaiCafe.toMap());
+        print('Loại cafe đã được thêm vào Firestore');
+      }
+      print('Danh sách loại cafe đã được thêm vào Firestore');
+    } catch (e) {
+      print('Lỗi khi thêm danh sách loại cafe vào Firestore: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

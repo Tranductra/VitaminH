@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vitaminh/firebase_options.dart';
 import 'package:vitaminh/myapp.dart';
 import 'package:vitaminh/src/class/userdata.dart';
+import 'package:vitaminh/src/provider/cartprovider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,8 +13,11 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserData(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserData()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
       child: MyApp(),
     ),
   );

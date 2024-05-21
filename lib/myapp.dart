@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitaminh/src/screens/admin_screen.dart';
 import 'package:vitaminh/src/screens/chaomung_screen.dart';
 import 'package:vitaminh/src/screens/chitietcafe_screen.dart';
 import 'package:vitaminh/src/screens/dangky_screen.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/screens/dangnhap': (context) => DangNhap_Screen(),
         '/screens/trangchu': (context) => Menu_Screen(),
+        '/screens/admin': (context) => Admin_Screen(),
       },
       debugShowCheckedModeBanner: false,
       home: ChaoMung_Screen(),
